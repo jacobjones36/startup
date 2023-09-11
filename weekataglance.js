@@ -1,36 +1,42 @@
-function loadWeek() {
-    let weekList = [];
-    const weekText = localStorage.getItem('weekList');
-    if (weekText) {
-        weekList = JSON.parse(weekText);
+function loadWaag() {
+    let waagList = [];
+    const waagText = localStorage.getItem('waagList');
+    if (waagText) {
+        waagList = JSON.parse(waagText);
     }
-    console.log('log');
-    const eventTableBodyEl = document.querySelector('#weekList');
+    const waagTableBodyEl = document.querySelector('#waagList');
     
-    if (weekList.length) {
-        for (const [i, j] of weekList.entries()) {
+    if (waagList.length) {
+        for (const [i, j] of waagList.entries()) {
             const dateEl = document.createElement('td');
-            const opponentEl = document.createElement('td');
-            const locationEl = document.createElement('td');
-            const resultEl = document.createElement('td');
+            const infoEl = document.createElement('td');
 
-            dateEl.textContent = j.date + "\n" + j.time;
-            opponentEl.textContent = j.opponent;
-            locationEl.textContent = j.location;
-            resultEl.textContent = j.result;
+            dateEl.textContent = j.date + "\n@" + j.time;
+            infoEl.textContent = j.info;
 
             const rowEl = document.createElement('tr');
             rowEl.appendChild(dateEl);
-            rowEl.appendChild(opponentEl);
-            rowEl.appendChild(locationEl);
-            rowEl.appendChild(resultEl);
+            rowEl.appendChild(infoEl);
 
-            eventTableBodyEl.appendChild(rowEl);
+            waagTableBodyEl.appendChild(rowEl);
         }
     }
     else {
-        eventTableBodyEl.innerHTML = '<tr><td colSpan=4>Be the first to Score</td></tr>';
+        waagTableBodyEl.innerHTML = '<tr><td colSpan=4>Nothing out of the usual this week</td></tr>';
+    }
+}
+function clearWaag() {
+    let waagList = [];
+    const eventText = localStorage.getItem('waagList');
+    if(waagText) {
+        waagList = JSON.parse(waagText);
+    }
+    const eventTableBodyEl = document.querySelector('#waagList');
+    if(waagList.length) {
+        for (const [i, j] of waagList.entries()) {
+            
+        }
     }
 }
 
-loadWeek();
+loadWaag();

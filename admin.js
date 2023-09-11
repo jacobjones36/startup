@@ -25,6 +25,29 @@ function updateSchedule() {
 
 }
 
+function updateWaag() {
+    let waagList = [];
+    const waagText = localStorage.getItem('waagList');
+    if (waagText) {
+        waagList = JSON.parse();
+    }
+
+    const dateObj = document.querySelector('#dateInputWAAG');
+    const timeObj = document.querySelector('#timeInputWAAG');
+    const infoObj = document.querySelector('#infoInput');
+
+    const date = dateObj.value;
+    const time = timeObj.value;
+    const info = infoObj.value;
+    
+    
+    const newWaag = { date: date, time: time, info: info };
+    
+    waagList.push(newWaag);
+    localStorage.setItem('waagList', JSON.stringify(waagList));
+    window.location.href = "adminpage.html";
+}
+
 function createButton() {
     const button = document.getElementById("create-schedule-button");
     button.setAttribute("disabled", "");

@@ -28,7 +28,7 @@ function loadSchedule() {
         }
     }
     else {
-        eventTableBodyEl.innerHTML = '<tr><td colSpan=4>Be the first to Score</td></tr>';
+        eventTableBodyEl.innerHTML = '<tr><td colSpan=4>No events scheduled yet</td></tr>';
     }
 }
 
