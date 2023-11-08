@@ -1,13 +1,23 @@
-function loadWaag() {
-    let waagList = [];
-    const waagText = localStorage.getItem('waagList');
-    if (waagText) {
-        waagList = JSON.parse(waagText);
+async function loadWaag() {
+    let waag = [];
+    try {
+        const response = await fetch('api/waag');
+        waag = await response.json();
+        localStorage.setItem('waag', JSON.stringify(waag));
+    } catch {
+        const waag = localStorage.getItem('waagList');
+        if (waag) {
+            waag = JSON.parse(waag);
+        }
     }
+    displayWaag(waag)
+}
+    
+function displayWaag(waag) {    
     const waagTableBodyEl = document.querySelector('#waagList');
     
-    if (waagList.length) {
-        for (const [i, j] of waagList.entries()) {
+    if (waag.length) {
+        for (const [i, j] of waag.entries()) {
             const dateEl = document.createElement('td');
             const infoEl = document.createElement('td');
 

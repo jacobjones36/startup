@@ -1,13 +1,13 @@
 async function loadSchedule() {
-    let eventList = [];
+    let schedule = [];
     try {
         const response = await fetch('api/schedules');
         schedule = await response.json();
         localStorage.setItem('schedule', JSON.stringify(schedule));
     } catch {
-        const eventText = localStorage.getItem('eventList');
-        if (eventText) {
-            eventList = JSON.parse(eventText);
+        const schedule = localStorage.getItem('eventList');
+        if (schedule) {
+            schedule = JSON.parse(schedule);
         }
     }
     displaySchedule(schedule);
@@ -16,8 +16,8 @@ async function loadSchedule() {
 function displaySchedule(schedule) {
     const eventTableBodyEl = document.querySelector('#eventList');
     
-    if (eventList.length) {
-        for (const [i, j] of eventList.entries()) {
+    if (schedule.length) {
+        for (const [i, j] of schedule.entries()) {
             const dateEl = document.createElement('td');
             const opponentEl = document.createElement('td');
             const locationEl = document.createElement('td');

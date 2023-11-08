@@ -27,7 +27,7 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-let schedule = ["hello"];
+let schedule = loc;
 function updateSchedule(newEvent, schedule) {
   let found = false;
   for (const [i, prevEvent] of schedule.entries()) {
