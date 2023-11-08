@@ -1,9 +1,19 @@
-function loadSchedule() {
+async function loadSchedule() {
     let eventList = [];
-    const eventText = localStorage.getItem('eventList');
-    if (eventText) {
-        eventList = JSON.parse(eventText);
+    try {
+        const response = await fetch('api/schedules');
+        schedule = await response.json();
+        localStorage.setItem('schedule', JSON.stringify(schedule));
+    } catch {
+        const eventText = localStorage.getItem('eventList');
+        if (eventText) {
+            eventList = JSON.parse(eventText);
+        }
     }
+    displaySchedule(schedule);
+}
+
+function displaySchedule(schedule) {
     const eventTableBodyEl = document.querySelector('#eventList');
     
     if (eventList.length) {
@@ -45,5 +55,6 @@ function clearEvent() {
         }
     }
 }
+
 
 loadSchedule();
