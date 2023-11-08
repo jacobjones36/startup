@@ -19,6 +19,15 @@ apiRouter.post('/event', (req, res) => {
   res.send(schedule);
 });
 
+apiRouter.get('/waags', (_ereq, res) => {
+    res.send(waag);
+});
+
+apiRouter.post('/waag', (req, res) => {
+    waag = updateWaag(req.body, waag);
+    res.send(waag);
+});
+
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
@@ -27,7 +36,7 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-let schedule = loc;
+let schedule = [];
 function updateSchedule(newEvent, schedule) {
   let found = false;
   for (const [i, prevEvent] of schedule.entries()) {
@@ -47,4 +56,26 @@ function updateSchedule(newEvent, schedule) {
   }
 
   return schedule;
+}
+
+let waag = [];
+function updateWaag(newWaag, waag) {
+  let found = false;
+  for (const [i, prevWaag] of waag.entries()) {
+    if (newWaag.event > prevWaag.event) {
+      waag.splice(i, 0, newWaag);
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    waag.push(newWaag);
+  }
+
+  if (waag.length > 10) {
+    waag.length = 10;
+  }
+
+  return waag;
 }

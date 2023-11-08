@@ -1,7 +1,7 @@
 async function loadWaag() {
     let waag = [];
     try {
-        const response = await fetch('api/waag');
+        const response = await fetch('api/waags');
         waag = await response.json();
         localStorage.setItem('waag', JSON.stringify(waag));
     } catch {
