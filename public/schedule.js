@@ -11,7 +11,6 @@ async function loadSchedule() {
         }
     }
     displaySchedule(schedule);
-    displayQuote();
 }
 
 function displaySchedule(schedule) {
@@ -36,10 +35,12 @@ function displaySchedule(schedule) {
             rowEl.appendChild(resultEl);
 
             eventTableBodyEl.appendChild(rowEl);
+            displayQuote();
         }
     }
     else {
         eventTableBodyEl.innerHTML = '<tr><td colSpan=4>No events scheduled yet</td></tr>';
+        displayQuote();
     }
 }
 
