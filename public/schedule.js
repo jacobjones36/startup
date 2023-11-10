@@ -1,7 +1,7 @@
 async function loadSchedule() {
     let schedule = [];
     try {
-        const response = await fetch('api/schedule');
+        const response = await fetch('/api/schedule');
         schedule = await response.json();
         localStorage.setItem('schedule', JSON.stringify(schedule));
     } catch {
