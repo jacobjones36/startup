@@ -11,6 +11,5 @@ function login() {
         const message = document.createElement('div');
         message.textContent = "Invalid Password";
         invalidRequest.appendChild(message);
-
     } 
 }
