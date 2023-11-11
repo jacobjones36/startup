@@ -29,7 +29,6 @@ apiRouter.post('/waag', (req, res) => {
 });
 
 app.use((_req, res) => {
-  res.sendFile('index.html', { root: 'public' });
 });
 
 app.listen(port, () => {

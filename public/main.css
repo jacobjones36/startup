@@ -177,7 +177,10 @@ h2 {
     text-align: center;
 }
 
-
+#quote {
+    background-color: orange;
+    text-align: center;
+}
 
 table {
     width: 100%;
