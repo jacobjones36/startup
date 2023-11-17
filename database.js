@@ -1,5 +1,5 @@
 const {MongoClient} = require('mongodb');
-const config = require('./dbConfig.json')
+const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
@@ -26,6 +26,14 @@ async function addWaag(waag) {
     return result;
 }
 
-module.exports = (addEvent, addWaag)
+function getSchedule() {
+    return eventCollection;
+}
+
+function getWaag() {
+    return waagCollection;
+}
+
+module.exports = {addEvent, addWaag, getWaag, getSchedule};
 
 
