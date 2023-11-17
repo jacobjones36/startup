@@ -22,7 +22,7 @@ apiRouter.post('/event', async (req, res) => {
   res.send(schedule);
 });
 
-apiRouter.get('/waags', async (_ereq, res) => {
+apiRouter.get('/waags', async (_req, res) => {
   const waag = await DB.getWaag();
   res.send(waag);
 });

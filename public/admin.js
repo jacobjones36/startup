@@ -1,10 +1,45 @@
-function updateSchedule() {
-    let eventList = [];
-    const eventsText = localStorage.getItem('eventList');
-    if (eventsText) {
-        eventList = JSON.parse(eventsText);
-    }
+async function updateSchedule(event) {
 
+    const dateObj = document.querySelector('#dateInput');
+    const timeObj = document.querySelector('#timeInput');
+    const opponentObj = document.querySelector('#opponentInput');
+    const locationObj = document.querySelector('#locationInput');
+    const resultObj = document.querySelector('#resultInput');
+
+    const date = dateObj.value;
+    const time = timeObj.value;
+    const opponent = opponentObj.value;
+    const location = locationObj.value;
+    const result = resultObj.value;
+    
+    const newEvent = { date: date, time: time,opponent: opponent, location: location, result: result };
+    try {
+        const response = await fetch('/api/event', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newScore),
+        });
+
+        const schedule = await response.json();
+        localStorage.setItem('schedule', JSON.stringify(schedule));
+    } catch {
+        this.updateScheduleLocal(newEvent);
+    }
+}
+
+function updateScheduleLocal(newEvent) {
+    let schedule = [];
+    const scheduleText = localStorage.getItem('schedule');
+    if (scheduleText) {
+      schedule = JSON.parse(scheduleText);
+    }
+    schedule.push(newEvent);
+
+    localStorage.setItem('schedule', JSON.stringify(schedule));
+}
+
+/*function displaySchedule()
+    
     const dateObj = document.querySelector('#dateInput');
     const timeObj = document.querySelector('#timeInput');
     const opponentObj = document.querySelector('#opponentInput');
@@ -23,7 +58,7 @@ function updateSchedule() {
     localStorage.setItem('eventList', JSON.stringify(eventList));
     window.location.href = "adminpage.html";
 
-}
+}*/
 
 function updateWaag() {
     let waagList = [];
