@@ -1,4 +1,4 @@
-async function updateSchedule(event) {
+async function updateSchedule() {
 
     const dateObj = document.querySelector('#dateInput');
     const timeObj = document.querySelector('#timeInput');
@@ -17,7 +17,7 @@ async function updateSchedule(event) {
         const response = await fetch('/api/event', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newScore),
+            body: JSON.stringify(newEvent),
         });
 
         const schedule = await response.json();
