@@ -1,5 +1,4 @@
 async function updateSchedule() {
-
     const dateObj = document.querySelector('#dateInput');
     const timeObj = document.querySelector('#timeInput');
     const opponentObj = document.querySelector('#opponentInput');
@@ -38,35 +37,7 @@ function updateScheduleLocal(newEvent) {
     localStorage.setItem('schedule', JSON.stringify(schedule));
 }
 
-/*function displaySchedule()
-    
-    const dateObj = document.querySelector('#dateInput');
-    const timeObj = document.querySelector('#timeInput');
-    const opponentObj = document.querySelector('#opponentInput');
-    const locationObj = document.querySelector('#locationInput');
-    const resultObj = document.querySelector('#resultInput');
-
-    const date = dateObj.value;
-    const time = timeObj.value;
-    const opponent = opponentObj.value;
-    const location = locationObj.value;
-    const result = resultObj.value;
-    
-    const newEvent = { date: date, time: time,opponent: opponent, location: location, result: result };
-    
-    eventList.push(newEvent);
-    localStorage.setItem('eventList', JSON.stringify(eventList));
-    window.location.href = "adminpage.html";
-
-}*/
-
-function updateWaag() {
-    let waagList = [];
-    const waagText = localStorage.getItem('waagList');
-    if (waagText) {
-        waagList = JSON.parse();
-    }
-
+async function updateWaag() {
     const dateObj = document.querySelector('#dateInputWAAG');
     const timeObj = document.querySelector('#timeInputWAAG');
     const infoObj = document.querySelector('#infoInput');
@@ -75,12 +46,30 @@ function updateWaag() {
     const time = timeObj.value;
     const info = infoObj.value;
     
-    
     const newWaag = { date: date, time: time, info: info };
-    
-    waagList.push(newWaag);
-    localStorage.setItem('waagList', JSON.stringify(waagList));
-    window.location.href = "adminpage.html";
+    try {
+        const response = await fetch('/api/waag', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newWaag),
+        });
+
+        const waag = await response.json();
+        localStorage.setItem('waag', JSON.stringify(waag));
+        window.location.href = "adminpage.html";
+    } catch {
+        this.updateWaagLocal(newWaag);
+    }
+}
+
+function updateWaagLocal(newWaag) {
+    let waag = [];
+    const waagText = localStorage.getItem('waag');
+    if (waagText) {
+        waag = JSON.parse(waagText);
+    }
+    waag.push(newWaag);
+    localStorage.setItem('waag', JSON.stringify(waag));
 }
 
 function createButton() {
@@ -113,6 +102,7 @@ function updateWeek() {
     if(weekText) {
         weekList = JSON.parse(weekText);
     }
+    
     const dateObj = document.querySelector('#dateInputTwo');
     const bodyObj = document.querySelector('#bodyInput');
 
@@ -120,7 +110,6 @@ function updateWeek() {
     const body = bodyObj.value;
 
     const newItem = { date: date, body: body };
-
     weekList.push(newItem);
     localStorage.setItem('weekList', JSON.stringify(weekList));
     window.location.href = "adminpage.html";

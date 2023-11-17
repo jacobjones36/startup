@@ -27,23 +27,11 @@ async function addWaag(waag) {
 }
 
 function getSchedule() {
-    const query = {event: { $gt: 0, $lt: 900 } };
-    const options = {
-        sort: {event: -1},
-        limit: 10,
-    };
-    const cursor = eventCollection.find();
-    return cursor.toArray();
+    return eventCollection.find().toArray();
 }
 
 function getWaag() {
-    const query = {waag: { $gt: 0, $lt: 900 } };
-    const options = {
-        sort: {waag: -1},
-        limit: 10,
-    };
-    const cursor = waagCollection.find(query, options);
-    return cursor.toArray();
+    return waagCollection.find().toArray();
 }
 
 module.exports = {addEvent, addWaag, getWaag, getSchedule};
