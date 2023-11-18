@@ -27,10 +27,11 @@
         </header>
 
         <main class="container text-center container-notmain">
-            <h2>Update Schedule</h2>
+            <h2>Add to Schedule</h2>
             <div class="update-schedule">
                 <div class="event-item">
                     <input type="text" id="dateInput" class="required" onkeypress="enableSubmit()" placeholder="Sat., Feb. 18"/>
+                    <input type="text" id="index" placeholder="The Number of the Event You want to Delete" />
                 </div>
                 <div class="event-item">
                     <input type="text" id="timeInput" class="required" onkeypress="enableSubmit()" placeholder="7:00 PM" />
@@ -47,7 +48,18 @@
             </div>
             <div class="invalid-schedule" id="invalids"></div>
             <div class="event-items">
-                <button class="btn btn-primary" id="create-schedule-button" onclick="updateSchedule()">Create Event</button>
+                <button class="btn btn-primary" id="update-schedule-button" onclick="updateSchedule()">Update Existing Event</button>
+                <button class="btn btn-primary" id="create-schedule-button" onclick="addToSchedule()">Create Event</button>
+                <button class="btn btn-primary" id="delete-schedule-button" onclick="clearEvent()"> Delete Event</button>
+            </div>
+            <h2>Delete from Schedule</h2>
+            <div class="edit-schedule">
+                <div class="event-item">
+                    <input type="text" id="index" placeholder="The Number of the Event You want to Delete" />
+                </div>
+                <div class="event-item">
+                    <button class="btn btn-primary" id="delete-schedule-button" onclick="clearEvent()"> Delete Event</button>
+                </div>
             </div>
 
             <h2>Add Week at a Glance</h2>

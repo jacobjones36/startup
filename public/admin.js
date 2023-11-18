@@ -1,4 +1,4 @@
-async function updateSchedule() {
+async function addToSchedule() {
     const dateObj = document.querySelector('#dateInput');
     const timeObj = document.querySelector('#timeInput');
     const opponentObj = document.querySelector('#opponentInput');
@@ -22,11 +22,11 @@ async function updateSchedule() {
         const schedule = await response.json();
         localStorage.setItem('schedule', JSON.stringify(schedule));
     } catch {
-        this.updateScheduleLocal(newEvent);
+        this.addToScheduleLocal(newEvent);
     }
 }
 
-function updateScheduleLocal(newEvent) {
+function addToScheduleLocal(newEvent) {
     let schedule = [];
     const scheduleText = localStorage.getItem('schedule');
     if (scheduleText) {
@@ -35,6 +35,11 @@ function updateScheduleLocal(newEvent) {
     schedule.push(newEvent);
 
     localStorage.setItem('schedule', JSON.stringify(schedule));
+}
+
+async function clearEvent() {
+    
+
 }
 
 async function updateWaag() {
