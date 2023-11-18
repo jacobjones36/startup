@@ -1,4 +1,6 @@
 const {MongoClient} = require('mongodb');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -15,6 +17,27 @@ const userCollection = db.collection('user');
     console.log(`unable to connect to database with ${url} because ${ex.message}`);
     process.exit(1);
 });
+
+function getUser(email) {
+    return userCollection.findOne({ email: email });
+}
+
+function getUserByToken(token) {
+    return userCollection.findOne({ token: token});
+}
+
+async function createUser(email, password) {
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = {
+        email: email,
+        password: passwordHash,
+        token: uuid.v4(),
+    };
+    await userCollection.insertOne(user);
+    return user;
+}
+
+
 
 async function addEvent(event) {
     const result = await eventCollection.insertOne(event);
@@ -36,6 +59,14 @@ function getWaag() {
     return waagCollection.find().toArray();
 }
 
-module.exports = {addEvent, addWaag, getWaag, getSchedule};
+module.exports = {
+    getUser,
+    getUserByToken,
+    createUser,
+    addEvent, 
+    addWaag, 
+    getWaag, 
+    getSchedule,
+};
 
 
