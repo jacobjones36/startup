@@ -52,9 +52,8 @@ async function addWaag(waag) {
 function getSchedule() {
     return eventCollection.find().toArray();
 }
-async function deleteEvent() {
-    const deleteResult = await eventCollection.deleteOne()
-}
+
+
 function getWaag() {
     return waagCollection.find().toArray();
 }

@@ -21,6 +21,11 @@ async function addToSchedule() {
 
         const schedule = await response.json();
         localStorage.setItem('schedule', JSON.stringify(schedule));
+        document.getElementById("dateInput").value = "";
+        document.getElementById("timeInput").value = "";
+        document.getElementById("opponentInput").value = "";
+        document.getElementById("locationInput").value = "";
+        document.getElementById("resultInput").value = "";
     } catch {
         this.addToScheduleLocal(newEvent);
     }
@@ -38,7 +43,7 @@ function addToScheduleLocal(newEvent) {
 }
 
 async function clearEvent() {
-    
+
 
 }
 

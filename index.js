@@ -48,6 +48,7 @@ apiRouter.delete('/auth/logout', (_req, res) => {
   res.status(204).end();
 });
 
+
 apiRouter.get('/user/:email', async (req, res) => {
   const user = await DB.getUser(req.params.email);
   if (user) {
@@ -58,8 +59,22 @@ apiRouter.get('/user/:email', async (req, res) => {
   res.status(404).send({ msg: 'Unknown'});
 });
 
+
+apiRouter.get('/schedule', async (_req, res) => {
+  const schedule = await DB.getSchedule();
+  res.send(schedule);
+});
+
+
+apiRouter.get('/waags', async (_req, res) => {
+  const waag = await DB.getWaag();
+  res.send(waag);
+});
+
+
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
+
 
 secureApiRouter.use(async (req, res, next) => {
   authToken = req.cookies[authCookieName];
@@ -69,29 +84,37 @@ secureApiRouter.use(async (req, res, next) => {
   } else {
     res.status(401).send({ msg: 'Unauthorized'});
   }
-});
+})
 
-secureApiRouter.get('/schedule', async (_req, res) => {
-  const schedule = await DB.getSchedule();
-  res.send(schedule);
-});
 
-secureApiRouter.post('/event', async (req, res) => {
+apiRouter.post('/event', async (req, res) => {
   DB.addEvent(req.body);
   const schedule = await DB.getSchedule();
   res.send(schedule);
 });
 
-secureApiRouter.get('/waags', async (_req, res) => {
-  const waag = await DB.getWaag();
-  res.send(waag);
-});
 
-secureApiRouter.post('/waag', async (req, res) => {
+apiRouter.post('/waag', async (req, res) => {
   DB.addWaag(req.body);
   const waag = await DB.getWaag();
   res.send(waag);
 });
+
+
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+
+secureApiRouter.use(async (req, res, next) => {
+  authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized'});
+  }
+})
+
 
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });

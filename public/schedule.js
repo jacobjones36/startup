@@ -1,3 +1,22 @@
+(async () => {
+    const userName = localStorage.getItem('userName');
+    if (userName) {
+        setDisplay('normalControls', 'none');
+        setDisplay('adminControl', 'block');
+    } else {
+        setDisplay('normalControls', 'block');
+        setDisplay('adminControl', 'none');
+    }
+})();
+
+
+function setDisplay(controlId, display) {
+    const adminControlEl = document.querySelector(`#${controlId}`);
+    if (adminControlEl) {
+        adminControlEl.style.display = display;
+    }
+}
+
 async function loadSchedule() {
     let schedule = [];
     try {
