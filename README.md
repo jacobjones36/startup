@@ -1,4 +1,4 @@
-I added the login feature and the info the admin adds is saved in the database and you have to login in order to add anything.
+I added the login feature so you can login if you have an account or you can create one. The info the admin adds is saved and retrieved from the database and you have to login in order to add anything. Stores and retrieves the credentials from the database.
 
 
 I added a quote to the main page using fetch. I updated the schedule and week at glace to add endpoints to each of them. Added the index.js file to serve the front end code through express and call the new endpoints from this code. Used node.js to debug it as I worked. 
