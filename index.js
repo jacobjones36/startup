@@ -19,7 +19,7 @@ app.set('trust proxy', true);
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
-apiRother.post('/auth/create', async (req, res) => {
+apiRouter.post('/auth/create', async (req, res) => {
   if (await DB.getUser(req.body.email)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {

@@ -1,7 +1,7 @@
 (async () => {
     const userName = localStorage.getItem('userName');
     if (userName) {
-        document.querySelector('#playerName').textContent = userName;
+        document.querySelector('#daName').textContent = userName;
         // TODO deal with #playerName
         setDisplay('loginControls', 'none');
         setDisplay('adminControls', 'block');
@@ -11,13 +11,16 @@
     }
 })();
 
+
 async function loginUser() {
     loginOrCreate(`/api/auth/login`);
 }
 
+
 async function createUser() {
     loginOrCreate(`/api/auth/create`);
 }
+
 
 async function loginOrCreate(endpoint) {
     const userName = document.querySelector('#userName')?.value;
@@ -32,7 +35,7 @@ async function loginOrCreate(endpoint) {
 
     if (response.ok) {
         localStorage.setItem('userName', userName);
-        window.location.href = 'play.html';
+        window.location.href = 'adminpage.html';
     } else {
         const body = await response.json();
         const modalEl = document.querySelector('#msgModal');
@@ -42,11 +45,16 @@ async function loginOrCreate(endpoint) {
     }
 }
 
+function edit() {
+    window.location.href = 'adminpage.html';
+}
+
+
 function logout() {
     localStorage.removeItem('userName');
     fetch(`/api/auth/logout`, {
         method: 'delete',
-    }).then(() => (windo.location.href = '/'));
+    }).then(() => (window.location.href = '/'));
 }
 
 async function getUser(email) {
@@ -59,7 +67,7 @@ async function getUser(email) {
 }
 
 function setDisplay(controlId, display) {
-    const adminControlEl = document.querySelector(`#${conrolId}`);
+    const adminControlEl = document.querySelector(`#${controlId}`);
     if (adminControlEl) {
         adminControlEl.style.display = display;
     }
