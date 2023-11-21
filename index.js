@@ -72,6 +72,25 @@ apiRouter.get('/waags', async (_req, res) => {
   res.send(waag);
 });
 
+apiRouter.post('/event/add', async (req, res) => {
+  DB.addEvent(req.body);
+  const schedule = await DB.getSchedule();
+  res.send(schedule);
+});
+
+apiRouter.post('/event/update', async (req, res) => {
+  DB.addEvent(req.body);
+  const schedule = await DB.getSchedule();
+  res.send(schedule);
+});
+
+
+apiRouter.post('/event/delete', async (req, res) => {
+  DB.deleteEvent(req.body);
+  const schedule = await DB.getSchedule();
+  res.send(schedule);
+});
+
 
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -87,12 +106,6 @@ secureApiRouter.use(async (req, res, next) => {
   }
 })
 
-
-apiRouter.post('/event', async (req, res) => {
-  DB.addEvent(req.body);
-  const schedule = await DB.getSchedule();
-  res.send(schedule);
-});
 
 
 apiRouter.post('/waag', async (req, res) => {

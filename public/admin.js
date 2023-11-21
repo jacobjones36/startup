@@ -13,7 +13,7 @@ async function addToSchedule() {
     
     const newEvent = { date: date, time: time,opponent: opponent, location: location, result: result };
     try {
-        const response = await fetch('/api/event', {
+        const response = await fetch('/api/event/add', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(newEvent),

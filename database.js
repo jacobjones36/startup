@@ -44,6 +44,12 @@ async function addEvent(event) {
     return result;
 }
 
+async function deleteEvent(event) {
+    const result = await eventCollection.deleteOne(event);
+    return result;
+}
+
+
 async function addWaag(waag) {
     const result = await waagCollection.insertOne(waag);
     return result;
