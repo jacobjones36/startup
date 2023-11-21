@@ -27,6 +27,7 @@
       </header>
       <main>
         <section class="container container-notmain">
+            <div id="userControls" style="display: none">
                 <h2>2023 MENS SOCCER SCHEDULE</h2>
                 <table class="table schedule-table">
                     <thead class="table-dark">
@@ -39,7 +40,21 @@
                     </thead>
                     <tbody id="eventList"></tbody>
                 </table>
-
+            </div>
+            <div id="adminControls" style="display: none">
+                <h2>Click Event to Edit</h2>
+                <table class="table schedule-table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Date/Time</th>
+                            <th>Opponent</th>
+                            <th>Location</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventLists"></tbody>
+                </table>
+            </div>    
         </section>
         
       </main>

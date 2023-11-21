@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -61,7 +62,7 @@ apiRouter.get('/user/:email', async (req, res) => {
 
 
 apiRouter.get('/schedule', async (_req, res) => {
-  const schedule = await DB.getSchedule();
+  const schedule = await DB.getSchedule();5
   res.send(schedule);
 });
 
@@ -133,6 +134,8 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);

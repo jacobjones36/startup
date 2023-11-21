@@ -1,11 +1,15 @@
 (async () => {
     const userName = localStorage.getItem('userName');
     if (userName) {
-        setDisplay('normalControls', 'none');
-        setDisplay('adminControl', 'block');
+        setDisplay('userControls', 'none');
+        setDisplay('adminControls', 'block');
+        let x = 1;
+        loadSchedule(x);
     } else {
-        setDisplay('normalControls', 'block');
-        setDisplay('adminControl', 'none');
+        setDisplay('userControls', 'block');
+        setDisplay('adminControls', 'none');
+        let x = 0;
+        loadSchedule(x);
     }
 })();
 
@@ -17,7 +21,7 @@ function setDisplay(controlId, display) {
     }
 }
 
-async function loadSchedule() {
+async function loadSchedule(displaySetting) {
     let schedule = [];
     try {
         const response = await fetch('/api/schedule');
@@ -29,11 +33,15 @@ async function loadSchedule() {
             schedule = JSON.parse(schedule);
         }
     }
-    displaySchedule(schedule);
+    displaySchedule(schedule, displaySetting);
 }
 
-function displaySchedule(schedule) {
-    const eventTableBodyEl = document.querySelector('#eventList');
+function displaySchedule(schedule, displaySetting) {
+    let eventLists = 'eventList';
+    if (displaySetting == 1) {
+        eventLists = 'eventLists';
+    }
+    const eventTableBodyEl = document.querySelector(`#${eventLists}`);
     
     if (schedule.length) {
         for (const [i, j] of schedule.entries()) {
@@ -74,5 +82,3 @@ function clearEvent() {
         }
     }
 }
-
-loadSchedule();
