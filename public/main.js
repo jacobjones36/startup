@@ -7,6 +7,22 @@
   }
 })();
 
+async function displayEvents() {
+  let schedule = [];
+    const response = await fetch('/api/schedule');
+    schedule = await response.json();
+
+    if(schedule.length) {
+      let k = 1;
+      for (const [i, j] of schedule.entries()) {
+        document.getElementById(`${k}s`).textContent = 'Baseball';
+        document.getElementById(`${k}g`).textContent = j.opponent;
+        document.getElementById(`${k}d`).textContent = j.date;
+        k++;
+      }
+    }
+}
+
 
 function displayQuote(data) {
     fetch('https://api.quotable.io/random')
@@ -28,4 +44,4 @@ function displayQuote(data) {
   }
 
   displayQuote();
-
+  displayEvents();
