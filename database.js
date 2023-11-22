@@ -44,6 +44,7 @@ async function addEvent(event) {
     return result;
 }
 
+
 async function deleteEvent(event) {
     const result = await eventCollection.deleteOne(event);
     return result;
@@ -52,6 +53,11 @@ async function deleteEvent(event) {
 
 async function addWaag(waag) {
     const result = await waagCollection.insertOne(waag);
+    return result;
+}
+
+async function deleteWaag(waag) {
+    const result = await waagCollection.deleteOne(waag);
     return result;
 }
 
@@ -72,6 +78,8 @@ module.exports = {
     addWaag, 
     getWaag, 
     getSchedule,
+    deleteEvent,
+    deleteWaag,
 };
 
 

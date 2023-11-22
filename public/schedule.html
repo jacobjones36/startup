@@ -32,7 +32,8 @@
                 <table class="table schedule-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>Date/Time</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Opponent</th>
                             <th>Location</th>
                             <th>Result</th>
@@ -46,7 +47,8 @@
                 <table class="table schedule-table">
                     <thead class="table-dark">
                         <tr>
-                            <th>Date/Time</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Opponent</th>
                             <th>Location</th>
                             <th>Result</th>
@@ -54,7 +56,29 @@
                     </thead>
                     <tbody id="eventLists"></tbody>
                 </table>
-            </div>    
+                <h2>Add to Schedule</h2>
+                <div class="update-schedule text-center">
+                    <div class="event-item">
+                        <input type="text" id="dateInput" class="required" onkeypress="enableSubmit()" placeholder="Sat., Feb. 18"/>
+                    </div>
+                    <div class="event-item">
+                        <input type="text" id="timeInput" class="required" onkeypress="enableSubmit()" placeholder="7:00 PM" />
+                    </div>
+                    <div class="event-item">
+                        <input type="text" id="opponentInput" class="required" onkeypress="enableSubmit()" placeholder="vs Central" />
+                    </div>
+                    <div class="event-item">
+                        <input type="text" id="locationInput" class="required" onkeypress="enableSubmit()" placeholder="Dallas High School" />
+                    </div>
+                    <div class="event-item">
+                        <input type="text" id="resultInput" placeholder="W 6-0" />
+                    </div>
+                </div>
+                <div class="invalid-schedule" id="invalids"></div>
+                <div class="event-items">
+                    <button class="btn btn-primary" id="create-schedule-button" onclick="addToSchedule()">Create Event</button>
+                </div> 
+            </div>   
         </section>
         
       </main>

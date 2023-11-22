@@ -44,10 +44,13 @@ async function loginOrCreate(endpoint) {
     }
 }
 
-function edit() {
-    window.location.href = 'adminpage.html';
+function editSchedule() {
+    window.location.href = 'schedule.html';
 }
 
+function editWaag() {
+    window.location.href = 'weekataglance.html'
+}
 
 function logout() {
     localStorage.removeItem('userName');

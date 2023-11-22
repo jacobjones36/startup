@@ -1,3 +1,13 @@
+(async () => {
+  const userName = localStorage.getItem('userName');
+  if (userName) {
+      document.getElementById('adminLogin').textContent = `Welcome ${userName}`;
+      document.getElementById('adminLogins').textContent = `Welcome ${userName}`;
+      
+  }
+})();
+
+
 function displayQuote(data) {
     fetch('https://api.quotable.io/random')
       .then((response) => response.json())
@@ -18,3 +28,4 @@ function displayQuote(data) {
   }
 
   displayQuote();
+

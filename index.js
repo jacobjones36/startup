@@ -78,15 +78,21 @@ apiRouter.post('/event/add', async (req, res) => {
   res.send(schedule);
 });
 
-apiRouter.post('/event/update', async (req, res) => {
-  DB.addEvent(req.body);
+
+apiRouter.post('/event/delete', async (req, res) => {
+  DB.deleteEvent(req.body);
   const schedule = await DB.getSchedule();
   res.send(schedule);
 });
 
+apiRouter.post('/waag/add', async (req, res) => {
+  DB.addWaag(req.body);
+  const waag = await DB.getWaag();
+  res.send(waag);
+});
 
-apiRouter.post('/event/delete', async (req, res) => {
-  DB.deleteEvent(req.body);
+apiRouter.post('/waag/delete', async (req, res) => {
+  DB.deleteWaag(req.body);
   const schedule = await DB.getSchedule();
   res.send(schedule);
 });
@@ -106,13 +112,6 @@ secureApiRouter.use(async (req, res, next) => {
   }
 })
 
-
-
-apiRouter.post('/waag', async (req, res) => {
-  DB.addWaag(req.body);
-  const waag = await DB.getWaag();
-  res.send(waag);
-});
 
 
 var secureApiRouter = express.Router();
