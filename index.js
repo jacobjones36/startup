@@ -62,7 +62,7 @@ apiRouter.get('/user/:email', async (req, res) => {
 
 
 apiRouter.get('/schedule', async (_req, res) => {
-  const schedule = await DB.getSchedule();5
+  const schedule = await DB.getSchedule();
   res.send(schedule);
 });
 
