@@ -44,8 +44,6 @@ class Schedule {
     scheduleText;
     newEvent;
     eventClass;
-    //schedule;
-
 
     constructor() {
         this.row = [];
@@ -158,27 +156,39 @@ class Schedule {
         
         if (schedule.length) {
             for (const [i, j] of schedule.entries()) {
-                const dateEl = document.createElement('td');
-                const timeEl = document.createElement('td');
-                const opponentEl = document.createElement('td');
-                const locationEl = document.createElement('td');
-                const resultEl = document.createElement('td');
-    
-                dateEl.textContent = j.date;
-                timeEl.textContent = j.time;
-                opponentEl.textContent = j.opponent;
-                locationEl.textContent = j.location;
-                resultEl.textContent = j.result;
-    
+
                 const rowEl = document.createElement('tr');
-                rowEl.appendChild(dateEl);
-                rowEl.appendChild(timeEl);
-                rowEl.appendChild(opponentEl);
-                rowEl.appendChild(locationEl);
-                rowEl.appendChild(resultEl);
+                
+                
                 if (displaySetting == 1) {
-                    rowEl.insertCell(5).innerHTML = '<button onclick="editData(this)">Edit</button>'+ 
-                    '<button onclick="deleteData(this)">Delete</button>';
+                    if (j.result == '') {
+                        j.result = 'Add Final Result';
+                    }
+                    
+                    rowEl.insertCell(0).innerHTML = `<button onclick="editData(this)">${j.date}</button>`;
+                    rowEl.insertCell(1).innerHTML = `<button onclick="editData(this)">${j.time}</button>`;
+                    rowEl.insertCell(2).innerHTML = `<button onclick="editData(this)">${j.opponent}</button>`;
+                    rowEl.insertCell(3).innerHTML = `<button onclick="editData(this)">${j.location}</button>`;
+                    rowEl.insertCell(4).innerHTML = `<button onclick="editData(this)">${j.result}</button>`;
+                }
+                else {
+                    const dateEl = document.createElement('td');
+                    const timeEl = document.createElement('td');
+                    const opponentEl = document.createElement('td');
+                    const locationEl = document.createElement('td');
+                    const resultEl = document.createElement('td');
+
+                    dateEl.textContent = j.date;
+                    timeEl.textContent = j.time;
+                    opponentEl.textContent = j.opponent;
+                    locationEl.textContent = j.location;
+                    resultEl.textContent = j.result;
+
+                    rowEl.appendChild(dateEl);
+                    rowEl.appendChild(timeEl);
+                    rowEl.appendChild(opponentEl);
+                    rowEl.appendChild(locationEl);
+                    rowEl.appendChild(resultEl);
                 }
     
                 eventTableBodyEl.appendChild(rowEl);
@@ -188,6 +198,12 @@ class Schedule {
         else {
             eventTableBodyEl.innerHTML = '<tr><td colSpan=4>No events scheduled yet</td></tr>';
         }
+    }
+
+    async pressEvent() {
+        console.log('made it here at least');
+        let newInput = prompt("Enter the updated Date:", clickedEvent.innerHTML);
+        
     }
 
 
