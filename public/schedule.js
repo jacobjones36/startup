@@ -13,6 +13,8 @@
     }
 })();
 
+const ScheduleEvent = 'scheduleEvent';
+
 
 function setDisplay(controlId, display) {
     const adminControlEl = document.querySelector(`#${controlId}`);
@@ -55,11 +57,15 @@ class Schedule {
         this.deleteOrAdd(`/api/event/add`);
     }
 
-    async deleteEvent(data) {
-        this.deleteOrAdd(`/api/event/delete`, data);
+    async deleteEvent() {
+        this.deleteOrAdd(`/api/event/delete`);
     }
     
-    
+    async getAdminName() {
+        return localStorage.getItem('userName');
+    }
+
+
     deletePrevData() {
         $('#eventLists').detach();
     }
@@ -79,45 +85,52 @@ class Schedule {
         document.getElementById("opponentInput").value = "";
         document.getElementById("locationInput").value = "";
         document.getElementById("resultInput").value = "";
+        
     }
     
     async editData(button) {
+        
         let row = button.parentNode.parentNode;
-    
-        let dateCell = row.cells[0];
-        let timeCell = row.cells[1];
-        let opponentCell = row.cells[2];
-        let locationCell = row.cells[3];
-        let resultCell = row.cells[4];
-    
-        let dateInput = prompt("Enter the updated Date:", dateCell.innerHTML);
-        let timeInput = prompt("Enter the updated Time:", timeCell.innerHTML);
-        let opponentInput = prompt("Enter the update Opponent:", opponentCell.innerHTML);
-        let locationInput = prompt("Enter the update Location:", locationCell.innerHTML);
-        let resultInput = prompt("Enter the update Result:", resultCell.innerHTML);
-        const updatedEvent = { date: dateInput, time: timeInput, opponent: opponentInput, location: locationInput, result: resultInput };
-        const deletedRow = { date: dateCell.innerHTML, time: timeCell.innerHTML, opponent: opponentCell.innerHTML, location: locationCell.innerHTML, result: resultCell.innerHTML };
-        this.deleteEvent(deletedRow);
-        this.addEvent(updatedEvent);
+        let date = row.cells[0].textContent;
+        let time = row.cells[1].textContent;
+        let opponent = row.cells[2].textContent;
+        let location = row.cells[3].textContent;
+        let result = row.cells[4].textContent;
+        if (result == 'Add Final Result') {
+            result = '';
+        }
+
+        this.newEvent = { date: date, time: time, opponent: opponent, location: location, result: result };
+        this.deleteEvent();
+
+        let input = prompt("Enter the updated Info: ", button.textContent);
+        button.textContent = input;
+        date = row.cells[0].textContent;
+        time = row.cells[1].textContent;
+        opponent = row.cells[2].textContent;
+        location = row.cells[3].textContent;
+        result = row.cells[4].textContent;
+
+        this.newEvent = { date: date, time: time, opponent: opponent, location: location, result: result };
+        this.addEvent();
+        
     }
     
     async deleteData(button) {
         let row = button.parentNode.parentNode;
-        let dateCell = row.cells[0];
-        let timeCell = row.cells[1];
-        let opponentCell = row.cells[2];
-        let locationCell = row.cells[3];
-        let resultCell = row.cells[4]; 
-        const deletedEvent = { date: dateCell.innerHTML, time: timeCell.innerHTML, opponent: opponentCell.innerHTML, location: locationCell.innerHTML, result: resultCell.innerHTML };
-        this.deleteEvent(deletedEvent);
+        let date = row.cells[0].textContent;
+        let time = row.cells[1].textContent;
+        let opponent = row.cells[2].textContent;
+        let location = row.cells[3].textContent;
+        let result = row.cells[4].textContent; 
+        this.newEvent = { date: date, time: time, opponent: opponent, location: location, result: result };
+        this.deleteEvent();
     }
 
 
     
 
     addToScheduleLocal() {
-        //let schedule = [];
-        //const scheduleText = localStorage.getItem('schedule');
         if (this.scheduleText) {
           this.schedule = JSON.parse(this.scheduleText);
         }
@@ -134,10 +147,16 @@ class Schedule {
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(this.newEvent),
             });
+
+            userName = this.getAdminName();
+            this.broadcastEvent(userName, ScheduleEvent, this.newEvent);
+    
             this.schedule = await response.json();
             localStorage.setItem('schedule', JSON.stringify(this.schedule));
             this.deletePrevData();
             this.displaySchedule(schedule, 1);
+
+
         } catch {
             this.addToScheduleLocal();
         }
@@ -165,11 +184,12 @@ class Schedule {
                         j.result = 'Add Final Result';
                     }
                     
-                    rowEl.insertCell(0).innerHTML = `<button onclick="editData(this)">${j.date}</button>`;
-                    rowEl.insertCell(1).innerHTML = `<button onclick="editData(this)">${j.time}</button>`;
-                    rowEl.insertCell(2).innerHTML = `<button onclick="editData(this)">${j.opponent}</button>`;
-                    rowEl.insertCell(3).innerHTML = `<button onclick="editData(this)">${j.location}</button>`;
-                    rowEl.insertCell(4).innerHTML = `<button onclick="editData(this)">${j.result}</button>`;
+                    rowEl.insertCell(0).innerHTML = `<button onclick="sched.editData(this)">${j.date}</button>`;
+                    rowEl.insertCell(1).innerHTML = `<button onclick="sched.editData(this)">${j.time}</button>`;
+                    rowEl.insertCell(2).innerHTML = `<button onclick="sched.editData(this)">${j.opponent}</button>`;
+                    rowEl.insertCell(3).innerHTML = `<button onclick="sched.editData(this)">${j.location}</button>`;
+                    rowEl.insertCell(4).innerHTML = `<button onclick="sched.editData(this)">${j.result}</button>`;
+                    rowEl.insertCell(5).innerHTML = `<button onclick="sched.deleteData(this)">Delete Event</button>`;
                 }
                 else {
                     const dateEl = document.createElement('td');
@@ -211,17 +231,15 @@ class Schedule {
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
         this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
         this.socket.onopen = (event) => {
-            this.displayMsg('system', 'game', 'disconnected');
+            this.displayMsg('system', 'schedule', 'connected');
         };
         this.socket.onclose = (event) => {
-            this.displayMsg('system', 'game', 'disconnected');
+            this.displayMsg('system', 'schedule', 'disconnected');
         };
         this.socket.onmessage = async (event) => {
             const msg = JSON.parse(await event.data.text());
-            if (msg.type === GameEndEvent) {
-                this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
-            } else if (msg.type === GameStartEvent) {
-                this.displayMsg('player', msg.from, `started a new game`);
+            if (msg.type === ScheduleEvent) {
+                this.displayMsg('player', msg.from, `event ${msg.value.date}`);
             }
         };
     }

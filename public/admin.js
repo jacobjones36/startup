@@ -1,5 +1,5 @@
 
-async function updateWaag() {
+/*async function updateWaag() {
     const dateObj = document.querySelector('#dateInputWAAG');
     const timeObj = document.querySelector('#timeInputWAAG');
     const infoObj = document.querySelector('#infoInput');
@@ -75,5 +75,13 @@ function updateWeek() {
     weekList.push(newItem);
     localStorage.setItem('weekList', JSON.stringify(weekList));
     window.location.href = "adminpage.html";
+}*/
+
+function updateWaag() {
+    window.location.href = "weekataglance.html";
+}
+
+function updateSchedule() {
+    window.location.href = "schedule.html";
 }
 
