@@ -148,8 +148,8 @@ class Schedule {
                 body: JSON.stringify(this.newEvent),
             });
 
-            userName = this.getAdminName();
-            this.broadcastEvent(userName, ScheduleEvent, this.newEvent);
+            //userName = this.getAdminName();
+            this.broadcastEvent('userName', ScheduleEvent, this.newEvent);
     
             this.schedule = await response.json();
             localStorage.setItem('schedule', JSON.stringify(this.schedule));
@@ -220,12 +220,6 @@ class Schedule {
         }
     }
 
-    async pressEvent() {
-        console.log('made it here at least');
-        let newInput = prompt("Enter the updated Date:", clickedEvent.innerHTML);
-        
-    }
-
 
     configureWebSocket() {
         const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
@@ -237,16 +231,15 @@ class Schedule {
             this.displayMsg('system', 'schedule', 'disconnected');
         };
         this.socket.onmessage = async (event) => {
-            const msg = JSON.parse(await event.data.text());
-            if (msg.type === ScheduleEvent) {
-                this.displayMsg('player', msg.from, `event ${msg.value.date}`);
-            }
+            //const msg = JSON.parse(await event.data.text());
+            this.displayMsg('system', 'schedule', `cool story bro`);
+            
         };
     }
 
     displayMsg(cls, from, msg) {
-        const chatText = document.querySelector('#player-messages');
-        chatText.innerHTML = `<div class="event"><span class="${cls}-eventt">${from}</span> ${msg}</div>` + chatText.innerHTML;
+        const chatText = document.querySelector('#admin-messages');
+        chatText.innerHTML = `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
     }
 
     broadcastEvent(from, type, value) {
