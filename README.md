@@ -1,4 +1,4 @@
-Made it so you can individually edit each cell in the schedule. Communication through websocket added. Admin gives options to edit where you want to now. Added schedule class to make the code more readable. 
+Made it so you can individually edit each cell in the schedule. Communication through websocket added lets admin user know what event they just edited/added/ or deleted. Admin gives options to edit where you want to now. Added schedule class to make the code more readable. 
 
 
 I added the login feature so you can login if you have an account or you can create one. The info the admin adds is saved and retrieved from the database and you have to login in order to add anything. Stores and retrieves the credentials from the database.
