@@ -96,9 +96,9 @@ class Schedule {
         let opponent = row.cells[2].textContent;
         let location = row.cells[3].textContent;
         let result = row.cells[4].textContent;
-        if (result == 'Add Final Result') {
+        /*if (result == 'Add Final Result') {
             result = '';
-        }
+        }*/
 
         this.newEvent = { date: date, time: time, opponent: opponent, location: location, result: result };
         this.deleteEvent();
@@ -149,12 +149,12 @@ class Schedule {
             });
 
             //userName = this.getAdminName();
-            this.broadcastEvent('userName', ScheduleEvent, this.newEvent);
+            this.broadcastEvent('successfully edited/deleted event on ', ScheduleEvent, this.newEvent);
     
             this.schedule = await response.json();
             localStorage.setItem('schedule', JSON.stringify(this.schedule));
             this.deletePrevData();
-            this.displaySchedule(schedule, 1);
+            //this.displaySchedule(schedule, 1);
 
 
         } catch {
@@ -231,8 +231,8 @@ class Schedule {
             this.displayMsg('system', 'schedule', 'disconnected');
         };
         this.socket.onmessage = async (event) => {
-            //const msg = JSON.parse(await event.data.text());
-            this.displayMsg('system', 'schedule', `cool story bro`);
+            const msg = JSON.parse(await event.data.text());
+            this.displayMsg('player', msg.from, `${msg.value.date}`);
             
         };
     }
