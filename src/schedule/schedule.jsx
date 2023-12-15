@@ -4,6 +4,7 @@ import { AuthState } from '../Admin/authState';
 import { AdminSchedule } from './adminSchedule';
 import { UserSchedule } from './userSchedule';
 
+import './schedule.css';
 
 export function Schedule(props) {
     
@@ -30,7 +31,7 @@ export function Schedule(props) {
     }
 
     return (
-        <main className='bg-secondary text-center'>
+        <main className='text-center' id='sched'>
             {display}
         </main>
     );

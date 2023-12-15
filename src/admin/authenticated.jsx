@@ -25,14 +25,14 @@ export function Authenticated(props) {
     <div>
       <div className='playerName'>{props.userName}</div>
       <div>
-        <Button variant='primary' onClick={() => navigate('/schedule')}>
+        <Button variant='primary' id='butt' onClick={() => navigate('/schedule')}>
             Edit Schedule
         </Button>
-        <Button variant='primary' onClick={() => navigate('/waag')}>
+        <Button variant='primary' id='butt' onClick={() => navigate('/waag')}>
             Edit Week at a Glance
         </Button>
       </div>
-      <Button variant='secondary' onClick={() => logout()}>
+      <Button variant='secondary' id='butt' onClick={() => logout()}>
         Logout
       </Button>
     </div>

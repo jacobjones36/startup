@@ -7,7 +7,7 @@ import { AuthState } from "./authState";
 
 export function Login({userName, authState, onAuthChange}) {
     return (
-        <main class="login-main container-fluid bg-secondary text-center">
+        <main class="text-center" id='fat-jake'>
             <div>
                 {authState !== AuthState.Unknown && <h1>Admin Access</h1>}
                 {authState === AuthState.Authenticated && (

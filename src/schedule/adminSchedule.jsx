@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from '../Admin/messageDialog';
 
+import './schedule.css';
+
 export function AdminSchedule(props) {
     let schedule = props.events;
     const [displayError, setDisplayError] = React.useState(null);

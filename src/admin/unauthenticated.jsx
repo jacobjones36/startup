@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import {MessageDialog} from './messageDialog';
+import './authenticated.css';
 
 export function Unauthenticated(props) {
   const [userName, setUserName] = React.useState(props.userName);
@@ -34,10 +35,10 @@ export function Unauthenticated(props) {
   }
 
   return (
-    <>
+    <div className='items-center'>
       <div>
-        <div className='input-group mb-3'>
-          <span className='input-group-text'>@</span>
+        <div className='input-group' id='input-bar'>
+          <span id='spanner'>Username: </span>
           <input
             className='form-control'
             type='text'
@@ -46,8 +47,8 @@ export function Unauthenticated(props) {
             placeholder='your@email.com'
           />
         </div>
-        <div className='input-group mb-3'>
-          <span className='input-group-text'>🔒</span>
+        <div className='input-group mb-3' id='input-bar'>
+          <span id='spanner'>Password: </span>
           <input
             className='form-control'
             type='password'
@@ -55,15 +56,15 @@ export function Unauthenticated(props) {
             placeholder='password'
           />
         </div>
-        <Button variant='primary' onClick={() => loginUser()}>
+        <Button variant='primary' id='butt' onClick={() => loginUser()}>
           Login
         </Button>
-        <Button variant='secondary' onClick={() => createUser()}>
+        <Button variant='secondary' id='butt' onClick={() => createUser()}>
           Create
         </Button>
       </div>
 
       <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
-    </>
+    </div>
   );
 }

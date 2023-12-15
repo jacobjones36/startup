@@ -1,6 +1,9 @@
 import React from "react";
 
+import { AuthState } from "../Admin/authState";
+
 export function Main(props) {
+    
     return (
         <main class="container">
             <img src="/dragon.jpeg"/>

@@ -1,3 +1,24 @@
+#fat-jake{
+    min-height: 600px;
+    background-color: orange;
+}
+
+#butt {
+    margin: 5px;
+}
+
+#input-bar {
+    padding-left: 300px;
+    width: 80%;
+    padding-right: 100px;
+}
+
+#spanner {
+    padding:0.5em;
+    background-color: black;
+    border-radius:15%;
+}
+
 .playerName {
     color:rgb(118, 190, 210);
     font-size: 1.5em;
