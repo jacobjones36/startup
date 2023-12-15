@@ -61,7 +61,7 @@ function App() {
                         exact
                     />
                     <Route path='/schedule' element={<Schedule userName={userName} authState={authState} />} />
-                    <Route path='/waag' element={<Waag />} />
+                    <Route path='/waag' element={<Waag userName={userName} authState={authState} />} />
                     <Route path='/contact' element={<Contact />} />
                     <Route path='/photos' element={<Photo />} />
                     <Route path='*' element={<NotFound />} />

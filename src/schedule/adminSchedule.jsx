@@ -18,8 +18,8 @@ export function AdminSchedule(props) {
             body: JSON.stringify({date: newEvent[0], time: newEvent[1], opponent: newEvent[2], location: newEvent[3], result: newEvent[4]}),
         });
         if (response?.status === 200) {
-            this.schedule = await response.json();
-            localStorage.setItem('schedule', this.schedule);
+            schedule = await response.json();
+            localStorage.setItem('schedule', schedule);
         } else {
             const body = await response.json();
             setDisplayError(`⚠ Error: ${body.msg} Creation Error`);
@@ -27,14 +27,17 @@ export function AdminSchedule(props) {
     }
     
     async function deleteEvent() {
+        if (delEvent[4] == 'Add Final Result') {
+            delEvent[4] = '';
+        }
         const response = await fetch(`/api/event/delete`, {
             method: 'post',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({date: delEvent[0], time: delEvent[1], opponent: delEvent[2], location: delEvent[3], result: delEvent[4]}),
         });
         if (response?.status === 200) {
-            this.schedule = await response.json();
-            localStorage.setItem('schedule', this.schedule);
+            schedule = await response.json();
+            localStorage.setItem('schedule', schedule);
         } else {
             const body = await response.json();
             setDisplayError(`⚠ Error: ${body.msg} DELETION Error`);
@@ -101,6 +104,17 @@ export function AdminSchedule(props) {
         
     }
 
+    async function deleteRow(event) {
+        delEvent.push(event.date);
+        delEvent.push(event.time);
+        delEvent.push(event.opponent);
+        delEvent.push(event.location);
+        delEvent.push(event.result);
+        deleteEvent();
+        delEvent = [];
+        setDisplayError(`Successfully Deleted Event`);
+    }
+
 
     const scheduleRows = [];
     if (schedule.length) {
@@ -115,6 +129,7 @@ export function AdminSchedule(props) {
                     <td><Button variant='secondary' onClick={() => editData(event, 2)}>{event.opponent}</Button></td>
                     <td><Button variant='secondary' onClick={() => editData(event, 3)}>{event.location}</Button></td>
                     <td><Button variant='secondary' onClick={() => editData(event, 4)}>{event.result}</Button></td>
+                    <td><Button variant='secondary' onClick={() => deleteRow(event)}>Delete this Event</Button></td>
                 </tr>
             );
         }
