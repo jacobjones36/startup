@@ -140,7 +140,7 @@ class Schedule {
     }
 
 
-    async deleteOrAdd(endpoint) {
+    async thdeleteOrAdd(endpoint) {
         try {
             const response = await fetch(endpoint, {
                 method: 'POST',

@@ -1,7 +1,10 @@
 import React from "react";
 
+import Button from 'react-bootstrap/Button';
+
 export function Waag(props) {
-    if (props.userName === '') {
+    const userName = props.userName;
+    if (userName === '') {
         return (
             <main class='bg-secondary'>
                 <div id="userControls" style="display: none">
@@ -21,8 +24,8 @@ export function Waag(props) {
     } else {
         return (
             <main className='bg-secondary'>
-                <div id="adminControls" style="display: none">
-                        <h2>Admin Settings</h2>
+                <div id="adminControls">
+                        <h2>Admin Settings Mother Fucker</h2>
                         <table class="table waag-table">
                             <thead class="table-dark">
                                 <tr>
