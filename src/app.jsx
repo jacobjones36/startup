@@ -99,6 +99,9 @@ function App() {
                         <li class="footer-navbar-item">
                             <NavLink className='link' to='photos'>Photos</NavLink>
                         </li>
+                        <li class='footer-navbar-item'>
+                            <NavLink className='link' to='https://github.com/jacobjones36/startup/blob/main/README.md'>GitHub</NavLink>
+                        </li>
                     </ul>
                 </footer>
             </div>
