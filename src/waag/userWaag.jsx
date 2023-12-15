@@ -1,7 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import Button from 'react-bootstrap/Button';
+import './waag.css';
 
 export function UserWaag(props) {
     const waags = props.waags;

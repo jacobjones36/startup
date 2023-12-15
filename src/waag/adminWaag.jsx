@@ -1,8 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from '../Admin/messageDialog';
+import './waag.css';
 
 export function AdminWaag(props) {
     let waags = props.waags;

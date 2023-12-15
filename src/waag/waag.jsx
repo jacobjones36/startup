@@ -4,6 +4,8 @@ import { AuthState } from "../Admin/authState";
 import { AdminWaag } from "./adminWaag";
 import { UserWaag } from "./userWaag";
 
+import './waag.css';
+
 
 export function Waag(props) {
     const [waags, setWaags] = React.useState([]);
@@ -28,7 +30,7 @@ export function Waag(props) {
     }
 
     return (
-        <main className='bg-secondary text-center'>
+        <main className='text-center' id='waagbb'>
             {display}
         </main>
     )
