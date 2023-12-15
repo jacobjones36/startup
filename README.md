@@ -1,3 +1,5 @@
+It is all in react now. A bunch of react components to get it to log in and update delete and add to the schedule and week at a glance functions. Developed, bundled, and tested using vite. Used the React router in the login, schedule and week functions as well as some hooks. 
+
 Made it so you can individually edit each cell in the schedule. Communication through websocket added lets admin user know what event they just edited/added/ or deleted. Admin gives options to edit where you want to now. Added schedule class to make the code more readable. 
 
 
